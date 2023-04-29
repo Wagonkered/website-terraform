@@ -13,10 +13,10 @@ resource "aws_s3_bucket" "wagonkered_website" {
 }
 
 resource "aws_s3_bucket_public_access_block" "wagonkered_website" {
-  bucket            = aws_s3_bucket.wagonkered_website.id
-  block_public_policy = true
-  block_public_acls = true
-  ignore_public_acls = true
+  bucket                  = aws_s3_bucket.wagonkered_website.id
+  block_public_policy     = true
+  block_public_acls       = true
+  ignore_public_acls      = true
   restrict_public_buckets = true
 }
 
