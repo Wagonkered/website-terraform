@@ -22,4 +22,4 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: Terraform
+        run: terraform init
