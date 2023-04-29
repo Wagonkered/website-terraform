@@ -20,6 +20,11 @@ jobs:
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
+          
+      - uses: terraform-linters/setup-tflint@v3
+        name: Setup TFLint
+        with:
+          tflint_version: v0.44.1
 
       - name: Terraform Format
         id: fmt
@@ -28,3 +33,20 @@ jobs:
       - name: Terraform Init
         id: init
         run: terraform init
+
+      - name: Terraform Fmt
+        id: fmt
+        run: terraform fmt -check
+
+      - name: Terraform Valdiate
+        id: validate
+        run: terraform validate
+
+      - name: Init TFLint
+        run: tflint --init
+
+      - name: Run TFLint
+        run: tflint -f compact
+
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
