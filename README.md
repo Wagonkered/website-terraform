@@ -1,2 +1,2 @@
 # website-terraform
-Terraform for deploying website resources to AWS
+Terraform for deploying the Wagonkered website to AWS
