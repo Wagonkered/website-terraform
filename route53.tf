@@ -23,6 +23,7 @@ resource "aws_route53_record" "url_ip4" {
   name    = var.domain_name
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "A"
+  ttl     = 300
 
   records = [var.legacy_website_ip]
   /*
@@ -34,25 +35,27 @@ resource "aws_route53_record" "url_ip4" {
   */
 }
 
+/*
 resource "aws_route53_record" "url_ip6" {
   name    = var.domain_name
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "AAAA"
+  ttl     = 300
 
   records = [var.legacy_website_ip]
-  /*
   alias {
     name                   = aws_cloudfront_distribution.s3_distribution.domain_name
     zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
     evaluate_target_health = false
   }
-  */
 }
+*/
 
 resource "aws_route53_record" "www_ip4" {
   name    = "www.${var.domain_name}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "A"
+  ttl     = 300
 
   records = [var.legacy_website_ip]
   /*
@@ -64,20 +67,21 @@ resource "aws_route53_record" "www_ip4" {
   */
 }
 
+/*
 resource "aws_route53_record" "www_ip6" {
   name    = "www.${var.domain_name}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "AAAA"
+  ttl     = 300
 
   records = [var.legacy_website_ip]
-  /*
   alias {
     name                   = aws_cloudfront_distribution.s3_distribution.domain_name
     zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
     evaluate_target_health = false
   }
-  */
 }
+  */
 
 resource "aws_route53_record" "dev_ip4" {
   name    = "dev.${var.domain_name}"
