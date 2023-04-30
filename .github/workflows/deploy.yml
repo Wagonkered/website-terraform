@@ -2,7 +2,7 @@ name: Terraform CI
 
 on:
   push:
-    branch: main
+    branches: main
 
 jobs:
   build:
@@ -12,7 +12,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
+        uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -28,11 +28,11 @@ jobs:
       - name: Terraform Apply
         id: apply
         run: |
-          terraform apply 
-          -var="aws_region=${{ secrets.AWS_REGION }}"
-          -var="domain_name=${{ secrets.DOMAIN_NAME }}"
-          -var="mx_domain_1=${{ secrets.MX_DOMAIN_1 }}"
-          -var="mx_domain_2=${{ secrets.MX_DOMAIN_2 }}"
-          -var="spf_domain=${{ secrets.SPF_DOMAIN }}"
-          -var="google_site_verification_key=${{ secrets.GOOGLE_SITE_VERIFICATION_KEY }}"
+          terraform apply \
+          -var="aws_region=${{ secrets.AWS_REGION }}" \
+          -var="domain_name=${{ secrets.DOMAIN_NAME }}" \
+          -var="mx_domain_1=${{ secrets.MX_DOMAIN_1 }}" \
+          -var="mx_domain_2=${{ secrets.MX_DOMAIN_2 }}" \
+          -var="spf_domain=${{ secrets.SPF_DOMAIN }}" \
+          -var="google_site_verification_key=${{ secrets.GOOGLE_SITE_VERIFICATION_KEY }}" \
           -auto-approve
