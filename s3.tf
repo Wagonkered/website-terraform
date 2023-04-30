@@ -2,12 +2,15 @@
 #tfsec:ignore:aws-s3-enable-versioning
 resource "aws_s3_bucket" "wagonkered_website" {
   bucket = "wagonkered-website"
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = "arn"
-        sse_algorithm     = "aws:kms"
-      }
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_encryption" {
+  bucket = aws_s3_bucket.wagonkered_website.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.key.arn
+      sse_algorithm     = "aws:kms"
     }
   }
 }

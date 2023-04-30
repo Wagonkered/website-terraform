@@ -24,11 +24,14 @@ resource "aws_route53_record" "url_ip4" {
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "A"
 
+  records = [var.legacy_website_ip]
+  /*
   alias {
     name                   = aws_cloudfront_distribution.s3_distribution.domain_name
     zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
     evaluate_target_health = false
   }
+  */
 }
 
 resource "aws_route53_record" "url_ip6" {
@@ -36,15 +39,48 @@ resource "aws_route53_record" "url_ip6" {
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "AAAA"
 
+  records = [var.legacy_website_ip]
+  /*
   alias {
     name                   = aws_cloudfront_distribution.s3_distribution.domain_name
     zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
     evaluate_target_health = false
   }
+  */
 }
 
 resource "aws_route53_record" "www_ip4" {
   name    = "www.${var.domain_name}"
+  zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
+  type    = "A"
+
+  records = [var.legacy_website_ip]
+  /*
+  alias {
+    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+  */
+}
+
+resource "aws_route53_record" "www_ip6" {
+  name    = "www.${var.domain_name}"
+  zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
+  type    = "AAAA"
+
+  records = [var.legacy_website_ip]
+  /*
+  alias {
+    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    evaluate_target_health = false
+  }
+  */
+}
+
+resource "aws_route53_record" "dev_ip4" {
+  name    = "dev.${var.domain_name}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "A"
 
@@ -55,8 +91,8 @@ resource "aws_route53_record" "www_ip4" {
   }
 }
 
-resource "aws_route53_record" "www_ip6" {
-  name    = "www.${var.domain_name}"
+resource "aws_route53_record" "dev_ip6" {
+  name    = "dev.${var.domain_name}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   type    = "AAAA"
 
@@ -72,7 +108,7 @@ resource "aws_route53_record" "email_record" {
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   ttl     = "3600"
   type    = "MX"
-  records = ["10 ${var.mx_domain_1}", "20 ${var.mx_domain_2}"]
+  records = ["10 ${var.mx_domain_1}", "20 ${var.mx_domain_2}", "50 ${var.mx_domain_3}"]
 }
 
 resource "aws_route53_record" "spf_record" {
@@ -80,5 +116,5 @@ resource "aws_route53_record" "spf_record" {
   zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
   ttl     = "3600"
   type    = "TXT"
-  records = ["v=spf1 include:${var.spf_domain} ~all", "google-site-verification=${var.google_site_verification_key}"]
+  records = ["v=spf1 include:${var.spf_domain} ~all"]
 }

@@ -14,10 +14,15 @@ variable "mx_domain_2" {
   type = string
 }
 
+variable "mx_domain_3" {
+  type = string
+}
+
 variable "spf_domain" {
   type = string
 }
 
-variable "google_site_verification_key" {
+variable "legacy_website_ip" {
   type = string
 }
+
