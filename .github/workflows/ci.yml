@@ -56,5 +56,4 @@ jobs:
           -var="mx_domain_1=${{ secrets.MX_DOMAIN_1 }}" \
           -var="mx_domain_2=${{ secrets.MX_DOMAIN_2 }}" \
           -var="spf_domain=${{ secrets.SPF_DOMAIN }}" \
-          -var="google_site_verification_key=${{ secrets.GOOGLE_SITE_VERIFICATION_KEY }}" \
-          -auto-approve
+          -var="google_site_verification_key=${{ secrets.GOOGLE_SITE_VERIFICATION_KEY }}"
