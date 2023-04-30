@@ -23,11 +23,6 @@ resource "aws_s3_bucket_public_access_block" "wagonkered_website" {
   restrict_public_buckets = true
 }
 
-resource "aws_s3_bucket_acl" "wagonkered_website_acl" {
-  bucket = aws_s3_bucket.wagonkered_website.id
-  acl    = "private"
-}
-
 resource "aws_s3_bucket_website_configuration" "wagonkered_website_config" {
   bucket = aws_s3_bucket.wagonkered_website.id
 
