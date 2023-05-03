@@ -29,6 +29,7 @@ jobs:
         id: apply
         run: |
           terraform apply \
+          -var="account_id=${{ secrets.ACCOUNT_ID }}" \
           -var="aws_region=${{ secrets.AWS_REGION }}" \
           -var="domain_name=${{ secrets.DOMAIN_NAME }}" \
           -var="mx_domain_1=${{ secrets.MX_DOMAIN_1 }}" \
@@ -36,4 +37,7 @@ jobs:
           -var="mx_domain_3=${{ secrets.MX_DOMAIN_3 }}" \
           -var="spf_domain=${{ secrets.SPF_DOMAIN }}" \
           -var="legacy_website_ip=${{ secrets.LEGACY_WEBSITE_IP }}" \
+          -var="recaptcha_secret=${{ secrets.RECAPTCHA_SECRET }}" \
+          -var="receiver_email=${{ secrets.RECEIVER_EMAIL }}" \
+          -var="sender_email=${{ secrets.SENDER_EMAIL }}" \
           -auto-approve
