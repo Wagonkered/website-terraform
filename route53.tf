@@ -122,3 +122,32 @@ resource "aws_route53_record" "spf_record" {
   type    = "TXT"
   records = ["v=spf1 include:${var.spf_domain} ~all"]
 }
+
+resource "aws_route53_record" "certification_validation_local_region" {
+  for_each = {
+    for dvo in aws_acm_certificate.cert.domain_validation_options : dvo.domain_name => {
+      name   = dvo.resource_record_name
+      record = dvo.resource_record_value
+      type   = dvo.resource_record_type
+    }
+  }
+
+  allow_overwrite = true
+  name            = each.value.name
+  records         = [each.value.record]
+  ttl             = 60
+  type            = each.value.type
+  zone_id         = aws_route53_zone.wagonkered_hosted_zone.zone_id
+}
+
+resource "aws_route53_record" "api_custom_domain" {
+  name    = format("api.%s", var.domain_name)
+  zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
+  type    = "A"
+  alias {
+    evaluate_target_health = true
+    name                   = aws_api_gateway_domain_name.api_custom_domain.regional_domain_name
+    zone_id                = aws_api_gateway_domain_name.api_custom_domain.regional_zone_id
+  }
+}
+
