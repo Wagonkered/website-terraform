@@ -10,6 +10,10 @@ variable "domain_name" {
   type = string
 }
 
+variable "domain_name_dot_com" {
+  type = string
+}
+
 variable "mx_domain_1" {
   type = string
 }

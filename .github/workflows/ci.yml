@@ -54,6 +54,7 @@ jobs:
           -var="account_id=${{ secrets.ACCOUNT_ID }}" \
           -var="aws_region=${{ secrets.AWS_REGION }}" \
           -var="domain_name=${{ secrets.DOMAIN_NAME }}" \
+          -var="domain_name_dot_com=${{ secrets.DOMAIN_NAME_DOT_COM }}" \
           -var="mx_domain_1=${{ secrets.MX_DOMAIN_1 }}" \
           -var="mx_domain_2=${{ secrets.MX_DOMAIN_2 }}" \
           -var="mx_domain_3=${{ secrets.MX_DOMAIN_3 }}" \
