@@ -91,7 +91,7 @@ resource "aws_s3_bucket_website_configuration" "wagonkered_website_config_redire
 }
 
 resource "aws_s3_bucket_policy" "website_bucket_policy_redirect" {
-  bucket = aws_s3_bucket.wagonkered_website.id
+  bucket = aws_s3_bucket.wagonkered_website_redirect.id
 
   policy = jsonencode({
     Version = "2012-10-17",
