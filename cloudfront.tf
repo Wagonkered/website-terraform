@@ -64,9 +64,9 @@ resource "aws_cloudfront_distribution" "s3_distribution_redirect" {
     origin_id   = aws_s3_bucket_website_configuration.wagonkered_website_config_redirect.website_endpoint
 
     custom_origin_config {
-	  origin_protocol_policy = "http-only"
+      origin_protocol_policy = "http-only"
 
-	  http_port  = "80"
+      http_port  = "80"
       https_port = "443"
 
       # TODO: given the origin_protocol_policy set to `http-only`,
@@ -76,10 +76,10 @@ resource "aws_cloudfront_distribution" "s3_distribution_redirect" {
     }
   }
 
-  enabled             = true
-  is_ipv6_enabled     = true
+  enabled         = true
+  is_ipv6_enabled = true
 
-  aliases = ["www.${var.domain_name}", var.domain_name_dot_com, "www.${var.domain_name_dot_com}" ]
+  aliases = ["www.${var.domain_name}", var.domain_name_dot_com, "www.${var.domain_name_dot_com}"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
