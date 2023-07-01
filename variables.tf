@@ -30,16 +30,14 @@ variable "spf_domain" {
   type = string
 }
 
-variable "legacy_website_ip" {
-  type = string
-}
-
 variable "recaptcha_secret" {
   type = string
 }
+
 variable "receiver_email" {
   type = string
 }
+
 variable "sender_email" {
   type = string
 }

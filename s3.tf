@@ -4,17 +4,6 @@ resource "aws_s3_bucket" "wagonkered_website" {
   bucket = "wagonkered-website"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_encryption" {
-  bucket = aws_s3_bucket.wagonkered_website.id
-
-  rule {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.key.arn
-      sse_algorithm     = "aws:kms"
-    }
-  }
-}
-
 resource "aws_s3_bucket_public_access_block" "wagonkered_website" {
   bucket                  = aws_s3_bucket.wagonkered_website.id
   block_public_policy     = true
@@ -22,6 +11,7 @@ resource "aws_s3_bucket_public_access_block" "wagonkered_website" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
 
 resource "aws_s3_bucket_website_configuration" "wagonkered_website_config" {
   bucket = aws_s3_bucket.wagonkered_website.id
@@ -60,17 +50,6 @@ resource "aws_s3_bucket_policy" "website_bucket_policy" {
 #tfsec:ignore:aws-s3-enable-versioning
 resource "aws_s3_bucket" "wagonkered_website_redirect" {
   bucket = "wagonkered-website-redirect"
-}
-
-resource "aws_s3_bucket_server_side_encryption_configuration" "bucket_encryption_redirect" {
-  bucket = aws_s3_bucket.wagonkered_website_redirect.id
-
-  rule {
-    apply_server_side_encryption_by_default {
-      kms_master_key_id = aws_kms_key.key.arn
-      sse_algorithm     = "aws:kms"
-    }
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "wagonkered_website_redirect" {
