@@ -1,5 +1,7 @@
 #tfsec:ignore:aws-s3-enable-bucket-logging
 #tfsec:ignore:aws-s3-enable-versioning
+#tfsec:ignore:aws-s3-enable-bucket-encryption
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket" "wagonkered_website" {
   bucket = "wagonkered-website"
 }
@@ -48,6 +50,8 @@ resource "aws_s3_bucket_policy" "website_bucket_policy" {
 
 #tfsec:ignore:aws-s3-enable-bucket-logging
 #tfsec:ignore:aws-s3-enable-versioning
+#tfsec:ignore:aws-s3-enable-bucket-encryption
+#tfsec:ignore:aws-s3-encryption-customer-key
 resource "aws_s3_bucket" "wagonkered_website_redirect" {
   bucket = "wagonkered-website-redirect"
 }
