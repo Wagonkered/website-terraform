@@ -54,9 +54,19 @@ resource "aws_iam_policy" "contact_lambda_policy" {
           "ses:SendEmail",
         ]
         Effect   = "Allow"
-        Resource = "arn:aws:ses:${var.aws_region}:${var.account_id}:identity/${var.domain_name}"
+        Resource = "arn:aws:ses:${var.aws_region}:${var.account_id}:identity/*"
         Sid      = "0"
       },
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents",
+        ]
+        Resource = "${aws_cloudwatch_log_group.contact_form_log_group.arn}:*"
+        Effect   = "Allow"
+        Sid      = "1"
+      }
     ]
     Version = "2012-10-17"
   })
@@ -66,3 +76,11 @@ resource "aws_iam_role_policy_attachment" "contact_lambda_policy_attachment" {
   role       = aws_iam_role.contact.name
   policy_arn = aws_iam_policy.contact_lambda_policy.arn
 }
+
+
+#tfsec:ignore:aws-cloudwatch-log-group-customer-key
+resource "aws_cloudwatch_log_group" "contact_form_log_group" {
+  name              = "/aws/lambda/${aws_lambda_function.contact.function_name}"
+  retention_in_days = 14
+}
+

@@ -60,24 +60,31 @@ resource "aws_cloudfront_origin_access_identity" "wagonkered_website_access_iden
 #tfsec:ignore:aws-cloudfront-enable-logging
 resource "aws_cloudfront_distribution" "s3_distribution_redirect" {
   origin {
-    domain_name = aws_s3_bucket.wagonkered_website_redirect.bucket_regional_domain_name
-    origin_id   = aws_s3_bucket.wagonkered_website_redirect.bucket_regional_domain_name
+    domain_name = aws_s3_bucket_website_configuration.wagonkered_website_config_redirect.website_endpoint
+    origin_id   = aws_s3_bucket_website_configuration.wagonkered_website_config_redirect.website_endpoint
 
-    s3_origin_config {
-      origin_access_identity = aws_cloudfront_origin_access_identity.wagonkered_website_access_identity_redirect.cloudfront_access_identity_path
+    custom_origin_config {
+      origin_protocol_policy = "http-only"
+
+      http_port  = "80"
+      https_port = "443"
+
+      # TODO: given the origin_protocol_policy set to `http-only`,
+      # not sure what this does...
+      # "If the origin is an Amazon S3 bucket, CloudFront always uses TLSv1.2."
+      origin_ssl_protocols = ["TLSv1.2"]
     }
   }
 
-  enabled             = true
-  is_ipv6_enabled     = true
-  default_root_object = "index.html"
+  enabled         = true
+  is_ipv6_enabled = true
 
   aliases = ["www.${var.domain_name}", var.domain_name_dot_com, "www.${var.domain_name_dot_com}"]
 
   default_cache_behavior {
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id = aws_s3_bucket.wagonkered_website_redirect.bucket_regional_domain_name
+    target_origin_id = aws_s3_bucket_website_configuration.wagonkered_website_config_redirect.website_endpoint
 
     forwarded_values {
       query_string = false

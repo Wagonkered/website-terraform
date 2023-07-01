@@ -20,89 +20,73 @@ resource "aws_route53_record" "certification_validation_dot_com" {
 }
 
 resource "aws_route53_record" "url_ip4_dot_com" {
-  name    = var.domain_name
+  name    = var.domain_name_dot_com
   zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "A"
-  ttl     = 300
 
-  records = [var.legacy_website_ip]
-  /*
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
-  */
 }
 
-/*
-resource "aws_route53_record" "url_ip6" {
-  name    = var.domain_name
-  zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
+resource "aws_route53_record" "url_ip6_dot_com" {
+  name    = var.domain_name_dot_com
+  zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "AAAA"
-  ttl     = 300
 
-  records = [var.legacy_website_ip]
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
 }
-*/
 
 resource "aws_route53_record" "www_ip4_dot_com" {
-  name    = "www.${var.domain_name}"
+  name    = "www.${var.domain_name_dot_com}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "A"
-  ttl     = 300
 
-  records = [var.legacy_website_ip]
-  /*
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
-  */
 }
 
-/*
-resource "aws_route53_record" "www_ip6" {
-  name    = "www.${var.domain_name}"
-  zone_id = aws_route53_zone.wagonkered_hosted_zone.zone_id
+resource "aws_route53_record" "www_ip6_dot_com" {
+  name    = "www.${var.domain_name_dot_com}"
+  zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "AAAA"
-  ttl     = 300
 
-  records = [var.legacy_website_ip]
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
 }
-  */
 
 resource "aws_route53_record" "dev_ip4_dot_com" {
-  name    = "dev.${var.domain_name}"
+  name    = "dev.${var.domain_name_dot_com}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "A"
 
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
 }
 
 resource "aws_route53_record" "dev_ip6_dot_com" {
-  name    = "dev.${var.domain_name}"
+  name    = "dev.${var.domain_name_dot_com}"
   zone_id = aws_route53_zone.wagonkered_hosted_zone_dot_com.zone_id
   type    = "AAAA"
 
   alias {
-    name                   = aws_cloudfront_distribution.s3_distribution.domain_name
-    zone_id                = aws_cloudfront_distribution.s3_distribution.hosted_zone_id
+    name                   = aws_cloudfront_distribution.s3_distribution_redirect.domain_name
+    zone_id                = aws_cloudfront_distribution.s3_distribution_redirect.hosted_zone_id
     evaluate_target_health = false
   }
 }
