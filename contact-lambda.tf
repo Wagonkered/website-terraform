@@ -12,8 +12,8 @@ resource "aws_lambda_function" "contact" {
   filename      = data.archive_file.dummy_archive.output_path
   function_name = "wagonkered-contact-form"
   role          = aws_iam_role.contact.arn
-  handler       = "bin/main"
-  runtime       = "go1.x"
+  handler       = "bootstrap"
+  runtime       = "provided.al2"
   environment {
     variables = {
       RECAPTCHA_SECRET = var.recaptcha_secret
